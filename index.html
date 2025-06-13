@@ -40,57 +40,66 @@
             margin-top: 60px;
         }
 
-        .reset-score-button {
+        .reset-score-button,
+        .Auto-play-button {
             background-color: white;
             border: none;
             font-size: 15px;
             padding: 8px 15px;
             cursor: pointer;
         }
-        .style-game{
-            display:flex;
-            align-items:center;
-            justify-content:center;
+
+        .style-game {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             flex-direction: column;
             gap: 10px;
-            height:100vh;
-           
+            height: 100vh;
+
         }
     </style>
 </head>
 
 <body>
     <div class='style-game'>
-    <p class="title">Rock Paper Scissors</p>
+        <p class="title">Rock Paper Scissors</p>
 
-    <button onclick="
+        <button onclick="
       makeMove('rock');
     " class="move-button">
-        <img class="move-icon" src="rock-emoji.png">
-    </button>
+            <img class="move-icon" src="images/rock-emoji.png">
+        </button>
 
-    <button onclick="
+        <button onclick="
       makeMove('paper');
     " class="move-button">
-        <img class="move-icon" src="paper-emoji.png">
-    </button>
+            <img class="move-icon" src="images/paper-emoji.png">
+        </button>
 
-    <button onclick="
+        <button onclick="
       makeMove('scissors');
     " class="move-button">
-        <img class="move-icon" src="scissors-emoji.png">
-    </button>
+            <img class="move-icon" src="images/scissors-emoji.png">
+        </button>
 
-    <p class="result js-result"></p>
-    <p class="js-moves-chosen"></p>
+        <p class="result js-result"></p>
+        <p class="js-moves-chosen"></p>
 
-    <p class="score js-score"></p>
-    <button class="reset-score-button" onclick="
+        <p class="score js-score"></p>
+        <div>
+        <button class="reset-score-button" onclick="
       resetScore();
     ">
-        Reset Score
-    </button>
+            Reset Score
+        </button>
+        <button class="autoplay Auto-play-button" onclick="
+      autoplay();
+    ">
+            Auto play
+        </button>
         </div>
+    </div>
 
     <script>
         let score = {
@@ -130,8 +139,8 @@
             const movesElement = document.querySelector('.js-moves-chosen');
             movesElement.innerHTML = `
           You
-          <img src="${playerMove}-emoji.png" class="move-icon">
-          <img src="${computerMove}-emoji.png" class="move-icon">
+          <img src="images/${playerMove}-emoji.png" class="move-icon">
+          <img src="images/${computerMove}-emoji.png" class="move-icon">
           Computer
         `;
 
@@ -170,6 +179,30 @@
           Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}
         `;
         }
+
+        document.querySelector('.autoplay').classList.add('stopplay');
+        let isAutoplay = false;
+        let intervalId;
+        function autoplay() {
+            if (!isAutoplay) {
+                intervalId = setInterval(function () {
+                    const playerMove = pickComputerMove();
+                    makeMove(playerMove);
+                }, 1000);
+                isAutoplay =true;
+            } else {
+               clearInterval(intervalId);
+               isAutoplay =false;
+            };
+            const buttonElement = document.querySelector('.autoplay');
+            if (buttonElement.innerText === 'Auto play') {
+                buttonElement.innerText = 'Stop Play';
+            } else {
+                buttonElement.innerText = 'Auto play';
+            }
+
+        }
+
     </script>
 </body>
 
