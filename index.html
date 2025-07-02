@@ -1,107 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Rock Paper Scissors</title>
-    <style>
-        body {
-            background-color: rgb(25, 25, 25);
-            color: white;
-            font-family: Arial;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      background-color: #191919;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-        .title {
-            font-size: 30px;
-            font-weight: bold;
-        }
+    .style-game {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      gap: 15px;
+      text-align: center;
+    }
 
-        .move-icon {
-            height: 50px;
-        }
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #f1c40f;
+    }
 
-        .move-button {
-            width: 120px;
-            height: 120px;
-            border-radius: 60px;
-            border: 3px solid white;
+    .move-button {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px solid white;
+      background-color: #2c3e50;
+      margin: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-            background-color: transparent;
-            margin-right: 10px;
-            cursor: pointer;
-        }
+    .move-button:hover {
+      transform: scale(1.1);
+      background-color: #34495e;
+    }
 
-        .result {
-            font-size: 25px;
-            font-weight: bold;
-            margin-top: 50px;
-        }
+    .move-icon {
+      height: 40px;
+      pointer-events: none;
+    }
 
-        .score {
-            margin-top: 60px;
-        }
+    .move-buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
 
-        .reset-score-button,
-        .Auto-play-button {
-            background-color: white;
-            border: none;
-            font-size: 15px;
-            padding: 8px 15px;
-            cursor: pointer;
-        }
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #2ecc71;
+    }
 
-        .style-game {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 10px;
-            height: 100vh;
+    .js-moves-chosen img {
+      margin: 0 5px;
+    }
 
-        }
-    </style>
+    .score {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ecf0f1;
+    }
+
+    .reset-score-button,
+    .Auto-play-button {
+      background-color: #f1c40f;
+      color: black;
+      border: none;
+      font-size: 15px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin: 10px 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .reset-score-button:hover,
+    .Auto-play-button:hover {
+      background-color: #e1b000;
+    }
+
+    @media (max-width: 500px) {
+      .title {
+        font-size: 24px;
+      }
+
+      .move-button {
+        width: 70px;
+        height: 70px;
+      }
+
+      .move-icon {
+        height: 30px;
+      }
+
+      .result {
+        font-size: 20px;
+      }
+
+      .score {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class='style-game'>
-        <p class="title">Rock Paper Scissors</p>
+  <div class='style-game'>
+    <p class="title">Rock Paper Scissors</p>
 
-        <button onclick="
-      makeMove('rock');
-    " class="move-button">
-            <img class="move-icon" src="rock-emoji.png">
-        </button>
+    <div class="move-buttons-container">
+      <button onclick="makeMove('rock');" class="move-button">
+        <img class="move-icon" src="rock-emoji.png" alt="rock" />
+      </button>
 
-        <button onclick="
-      makeMove('paper');
-    " class="move-button">
-            <img class="move-icon" src="paper-emoji.png">
-        </button>
+      <button onclick="makeMove('paper');" class="move-button">
+        <img class="move-icon" src="paper-emoji.png" alt="paper" />
+      </button>
 
-        <button onclick="
-      makeMove('scissors');
-    " class="move-button">
-            <img class="move-icon" src="scissors-emoji.png">
-        </button>
-
-        <p class="result js-result"></p>
-        <p class="js-moves-chosen"></p>
-
-        <p class="score js-score"></p>
-        <div>
-        <button class="reset-score-button" onclick="
-      resetScore();
-    ">
-            Reset Score
-        </button>
-        <button class="autoplay Auto-play-button" onclick="
-      autoplay();
-    ">
-            Auto play
-        </button>
-        </div>
+      <button onclick="makeMove('scissors');" class="move-button">
+        <img class="move-icon" src="scissors-emoji.png" alt="scissors" />
+      </button>
     </div>
 
-    <script>
+    <p class="result js-result"></p>
+    <p class="js-moves-chosen"></p>
+    <p class="score js-score"></p>
+
+    <div>
+      <button class="reset-score-button" onclick="resetScore();">Reset Score</button>
+      <button class="autoplay Auto-play-button" onclick="autoplay();">Auto play</button>
+    </div>
+  </div>
+
+  <!-- JavaScript remains untouched -->
+  <script>
         let score = {
             wins: 0,
             losses: 0,
